@@ -6,9 +6,22 @@
 **Goal:** land raw files incrementally, clean them with data-quality expectations, build business-ready gold tables with
 **Lakeflow Spark Declarative Pipelines**, survive a schema change — and use the 2026 Delta / Iceberg features on the result.
 
-Files you edit (look for `TODO (lab-01)`): `src/pipelines/01_bronze.sql`, `02_silver.sql`, `03_gold.sql`,
-`src/notebooks/01_copy_into.py`, `src/notebooks/01_delta_iceberg.py`.
-The pipeline is declared as code in `resources/ingestion.pipeline.yml`.
+## What you build
+| Artifact | Where |
+|----------|-------|
+| `orders_bronze` streaming table | `src/pipelines/01_bronze.sql` |
+| `orders_silver` with three expectations | `src/pipelines/02_silver.sql` |
+| `revenue_by_region_daily`, `orders_enriched` | `src/pipelines/03_gold.sql` |
+| `orders_copy_into` (idempotent batch load) | `src/notebooks/01_copy_into.py` |
+| `orders_iceberg`, `orders_status`, `customer_profiles` | `src/notebooks/01_delta_iceberg.py` |
+
+Everything downstream — governance, BI, ML and the agent — reads these tables, so finish this lab before moving on.
+
+## Prerequisites
+* Lab 00 parts 1–3 done: Git folder, catalogs created, `generate_data` available.
+* Files you edit are marked `TODO (lab-01)`; the pipeline itself is declared as code in
+  `resources/ingestion.pipeline.yml` — never create it in the UI.
+* Free Edition: one active pipeline per type. Don't start a second pipeline run while this one is going.
 
 ## Part A · Workspace warm-up (10 min)
 1. Git folder → `databricks.yml` → **Deployments** → **dev** → **Deploy** (or `databricks bundle deploy`).
@@ -53,7 +66,7 @@ select list (second TODO), redeploy, run again.
 managed **Iceberg** table (`USING ICEBERG`) · `MERGE` · **multi-statement transaction** (GA Jul 2026) ·
 accidental `DELETE` → time travel → `RESTORE` · row-level changes with `table_changes()` · `CLUSTER BY AUTO`.
 
-## Optional
+## Stretch
 * **Zerobus Ingest:** push events straight into a Delta table with the Zerobus SDK.
 * **Lakeflow Designer:** rebuild the gold aggregate on the no-code canvas and compare the generated SQL.
 * **Lakeflow Connect:** your instructor demos a managed connector (SharePoint / Salesforce).
