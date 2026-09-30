@@ -11,7 +11,15 @@
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- TODO (lab-05): Create a table-valued SQL function lookup_order(p_order_id BIGINT) that returns order_id, order_date, amount, channel, category and region from orders_enriched, with a COMMENT the agent can read.
+# MAGIC -- SOLUTION-BEGIN lab-05: Create a table-valued SQL function lookup_order(p_order_id BIGINT) that returns order_id, order_date, amount, channel, category and region from orders_enriched, with a COMMENT the agent can read.
+# MAGIC CREATE OR REPLACE FUNCTION lookup_order(p_order_id BIGINT COMMENT 'The order number the customer mentions')
+# MAGIC RETURNS TABLE (order_id BIGINT, order_date DATE, amount DECIMAL(12, 2), channel STRING, category STRING, region STRING)
+# MAGIC COMMENT 'Look up a single order by its order number. Use when a customer asks about the status or content of an order.'
+# MAGIC RETURN
+# MAGIC   SELECT order_id, order_date, amount, channel, category, region
+# MAGIC   FROM orders_enriched
+# MAGIC   WHERE order_id = p_order_id;
+# MAGIC -- SOLUTION-END
 
 # COMMAND ----------
 
