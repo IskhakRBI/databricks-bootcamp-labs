@@ -14,6 +14,22 @@ feature branch ──PR──▶ unit tests · validate · plan(staging)
   manual run ────────▶ rollback prod to any commit/tag
 ```
 
+## What you build
+| Artifact | Where |
+|----------|-------|
+| `resources/orders.job.yml` — `orders_job`, 3 tasks, daily trigger | you author it in part A |
+| `my_first_job` adopted from the UI without duplicating it | part B |
+| `.github/workflows/bundle-cicd.yml` + `bundle-rollback.yml` | part D |
+| `[staging]` and `[prod]` deployments of the whole bundle | parts D–E |
+
+## Prerequisites
+* Labs 01–05 done, or start from `checkpoint/lab-06-devops`.
+* Lab 00 parts 4–5: GitHub variable `DATABRICKS_HOST`, secret `DATABRICKS_TOKEN`, and the `staging` / `prod`
+  environments. Without these, part D fails at the first workflow run.
+* A public repo if you want the prod approval gate; on GitHub Free, private repos have no environments — use
+  `bundle-cicd-private.yml` instead.
+* Databricks CLI ≥ 1.14 (lab 00 part 6) if you work locally rather than in the Git folder.
+
 ## Part A · Author a job by hand (15 min)
 Create `resources/orders.job.yml`: job `orders_job` with tasks `generate_batch` (notebook `00_generate_data.py`,
 `batch = {{job.parameters.batch}}`, `with_coupon=true`) → `refresh_pipeline` (`${resources.pipelines.orders_pipeline.id}` —

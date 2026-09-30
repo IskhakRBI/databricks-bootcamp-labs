@@ -1,7 +1,7 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # Lab 04 · Unity Catalog, Domains & Metric Views
-# MAGIC Prerequisites: labs 02–03 completed; you created the groups `bootcamp_analysts` and
+# MAGIC # Lab 02 · Unity Catalog, Domains & Metric Views
+# MAGIC Prerequisites: lab 01 completed; you created the groups `bootcamp_analysts` and
 # MAGIC `bootcamp_engineers` and added yourself to `bootcamp_engineers` (lab 00, part 2.5).
 # MAGIC
 # MAGIC UI steps (Domains, glossary, lineage) are in `labs/lab-02-data-governance/README.md`.

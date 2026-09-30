@@ -6,7 +6,21 @@
 **Goal:** model the gold layer as a **star schema** with keys, publish an **AI/BI dashboard** on governed metrics and curate
 a **Genie Agent** that answers correctly — proven with benchmarks.
 
-Notebook: `src/notebooks/03_bi_model.py` (TODOs marked `lab-03`). Prerequisites: labs 01–02.
+## What you build
+| Artifact | Where |
+|----------|-------|
+| `dim_customer`, `dim_product`, `dim_date` | `src/notebooks/03_bi_model.py` |
+| `fact_orders` with PK/FK constraints (`RELY`) | same notebook |
+| Published dashboard *Sales overview (&lt;you&gt;)* | Dashboards UI |
+| Genie Agent with instructions, trusted SQL and benchmarks | Genie UI |
+
+Lab 06 brings the dashboard and the Genie Agent under code with `bundle generate`, so give them the names used here.
+
+## Prerequisites
+* Lab 01 done — `orders_silver` and `orders_enriched` have rows.
+* Lab 02 done — `orders_metrics` exists; the dashboard and Genie both read it, not the raw tables.
+* Notebook: `src/notebooks/03_bi_model.py`, TODOs marked `lab-03`.
+* One SQL warehouse is running (Free Edition has exactly one).
 
 ## Part A · Star schema (20 min)
 Complete the notebook: `dim_customer`, `dim_product`, `dim_date` (TODO), `fact_orders` (TODO), primary keys and
@@ -37,3 +51,14 @@ Open **Genie One** (account-level chat) and ask the same question; note it answe
 - [ ] Star schema with PK/FK constraints
 - [ ] Published dashboard on `orders_metrics`
 - [ ] Genie Agent passes ≥ 4 of 5 benchmarks
+
+## Troubleshooting
+| Symptom | Fix |
+|--------|-----|
+| `ADD CONSTRAINT … PRIMARY KEY` fails | The key column must be `NOT NULL` first — run the `ALTER COLUMN … SET NOT NULL` line above it |
+| Foreign key rejected | Create `fact_orders` after all three dimensions; the notebook drops the fact first for exactly this reason |
+| No *Entity relationship diagram* on the table page | It appears once at least one foreign key with `RELY` exists; refresh the Catalog page |
+| `orders_metrics` not listed when adding a dashboard data source | Lab 02 part C not done, or the warehouse cannot read it — check `SELECT MEASURE(revenue)` works in SQL Editor first |
+| Dashboard shows no data after publishing | Publish with *embed credentials* off, then confirm `bootcamp_analysts` has `SELECT` from lab 02 part A |
+| Genie answers with the wrong revenue | Add an instruction pinning revenue to the governed measure, and save a trusted SQL example |
+| Benchmarks never finish | Free Edition has one 2X-Small warehouse — run benchmarks when no pipeline or job is running |
