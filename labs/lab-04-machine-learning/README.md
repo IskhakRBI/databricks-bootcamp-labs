@@ -6,7 +6,21 @@
 **Goal:** engineer governed features, train and track a churn model with **MLflow 3**, register it in **Unity Catalog**
 with aliases (not stages — the workspace registry is legacy), score in batch, serve it, and roll it back — all as code.
 
-Notebook: `src/notebooks/04_ml_training.py` (TODOs marked `lab-04`). Run on **Serverless**.
+## What you build
+| Artifact | Where |
+|----------|-------|
+| `customer_features` feature table (PK `customer_id`) | `src/notebooks/04_ml_training.py` |
+| `churn_model_fs` and `churn_model` registered in UC | same notebook |
+| `churn_predictions` batch-scored table | same notebook |
+| `resources/ml.yml` — experiment, training job, serving endpoint | you create it in part B |
+
+`churn_predictions` is what the business guide and the hackathon's churn challenge read.
+
+## Prerequisites
+* Lab 01 done — `orders_enriched` has rows and `labels/` exists in the raw volume.
+* Notebook: `src/notebooks/04_ml_training.py`, TODOs marked `lab-04`. Run on **Serverless**.
+* The notebook `%pip install`s `databricks-feature-engineering`, `scikit-learn` and `mlflow>=3.1`, then restarts
+  Python — let the first cell finish before running the rest.
 
 ## Part A · Features and training (35 min)
 1. Compute customer features from `orders_enriched` (orders, revenue, recency, category breadth, mobile share).
@@ -44,3 +58,14 @@ Batch consumers that load `models:/…@champion` roll back by moving the alias.
 - [ ] `customer_features` has a primary key; AUC visible in the experiment
 - [ ] `churn_model@champion` set; `churn_predictions` table exists
 - [ ] Endpoint served v2, then rolled back to v1 by redeploying
+
+## Troubleshooting
+| Symptom | Fix |
+|--------|-----|
+| `ModuleNotFoundError: databricks.feature_engineering` | The first cell's `%pip install` + `%restart_python` did not finish — re-run it alone |
+| `fe.create_table` fails: table already exists | Second run — use `fe.write_table(mode="merge")`, which is the branch the TODO asks for |
+| Feature table not visible under **Features** | It needs a primary key; check `SHOW CONSTRAINTS ON customer_features` |
+| `stratify=y` raises "least populated class has 1 member" | Too few churn labels — confirm `generate_data` wrote `labels/` and that you read all of it |
+| Endpoint stuck in `CREATING`, then fails | Free Edition allows few CPU endpoints — delete unused ones under **Serving**, then redeploy |
+| Endpoint cannot load the model | Serve `churn_model` (plain sklearn), not `churn_model_fs`, which expects feature lookups |
+| `bundle deploy` says the model version does not exist | Train first — the endpoint in `ml.yml` is dev-only because the model must exist before it can be served |

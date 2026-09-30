@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # Lab 02 · Idempotent batch loads with COPY INTO
+# MAGIC # Lab 01 · Idempotent batch loads with COPY INTO
 # MAGIC Compare with the Auto Loader streaming table in the pipeline: COPY INTO is a simple,
 # MAGIC re-runnable SQL command that skips files it has already loaded.
 
@@ -12,7 +12,16 @@
 
 spark.sql("CREATE TABLE IF NOT EXISTS orders_copy_into")
 
-# TODO (lab-01): Write a COPY INTO statement that loads JSON files from f"{raw_path}/orders/" into orders_copy_into with mergeSchema enabled for both format and copy options. Display the result.
+# SOLUTION-BEGIN lab-01: Write a COPY INTO statement that loads JSON files from f"{raw_path}/orders/" into orders_copy_into with mergeSchema enabled for both format and copy options. Display the result.
+result = spark.sql(f"""
+  COPY INTO orders_copy_into
+  FROM '{raw_path}/orders/'
+  FILEFORMAT = JSON
+  FORMAT_OPTIONS ('mergeSchema' = 'true', 'inferSchema' = 'true')
+  COPY_OPTIONS ('mergeSchema' = 'true')
+""")
+display(result)
+# SOLUTION-END
 
 # COMMAND ----------
 

@@ -12,4 +12,16 @@ COMMENT "Product catalogue from the raw volume"
 AS SELECT *
 FROM read_files('${raw_path}/products/', format => 'json');
 
--- TODO (lab-01): Create the streaming table orders_bronze with Auto Loader (STREAM read_files) over '${raw_path}/orders/' in JSON, with schemaEvolutionMode 'addNewColumns', plus source_file and ingested_at columns.
+-- SOLUTION-BEGIN lab-01: Create the streaming table orders_bronze with Auto Loader (STREAM read_files) over '${raw_path}/orders/' in JSON, with schemaEvolutionMode 'addNewColumns', plus source_file and ingested_at columns.
+CREATE OR REFRESH STREAMING TABLE orders_bronze
+COMMENT "Raw orders ingested incrementally with Auto Loader"
+AS SELECT
+  *,
+  _metadata.file_path AS source_file,
+  current_timestamp() AS ingested_at
+FROM STREAM read_files(
+  '${raw_path}/orders/',
+  format => 'json',
+  schemaEvolutionMode => 'addNewColumns'
+);
+-- SOLUTION-END
