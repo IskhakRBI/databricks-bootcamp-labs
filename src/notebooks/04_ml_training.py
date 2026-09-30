@@ -1,15 +1,15 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # Lab 05 · Feature engineering in Unity Catalog + churn model
-# MAGIC 1. Compute customer features from `orders_silver`
+# MAGIC # Lab 04 · Feature engineering in Unity Catalog + churn model
+# MAGIC 1. Compute customer features from `orders_enriched`
 # MAGIC 2. Register them as a feature table (primary key `customer_id`)
 # MAGIC 3. Build a training set with automatic feature lookups
 # MAGIC 4. Train, then register two models:
 # MAGIC    * `churn_model_fs` — packaged with its feature metadata (batch scoring with automatic lookups)
-# MAGIC    * `churn_model` — plain scikit-learn model for the real-time endpoint in lab 04
+# MAGIC    * `churn_model` — plain scikit-learn model for the real-time endpoint (part B)
 # MAGIC 5. (Optional) publish features to an online store (uses your one Lakebase project on Free Edition)
 # MAGIC
-# MAGIC Also run by the `train_churn_model` job from lab 04.
+# MAGIC Also run by the `train_churn_model` job (part B).
 
 # COMMAND ----------
 

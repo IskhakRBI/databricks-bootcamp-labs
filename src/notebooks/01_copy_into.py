@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # Lab 02 · Idempotent batch loads with COPY INTO
+# MAGIC # Lab 01 · Idempotent batch loads with COPY INTO
 # MAGIC Compare with the Auto Loader streaming table in the pipeline: COPY INTO is a simple,
 # MAGIC re-runnable SQL command that skips files it has already loaded.
 

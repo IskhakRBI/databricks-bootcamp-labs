@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # Lab 06 · Build, trace and evaluate a support agent (code-first)
+# MAGIC # Lab 05 · Build, trace and evaluate a support agent (code-first)
 # MAGIC Databricks Free Edition does not include the Agent Bricks *Knowledge Assistant*, so we build the same pattern
 # MAGIC in ~60 lines: an LLM from **Foundation Model APIs** decides which **governed tools** to call —
 # MAGIC a policy search over `support_docs` and the Unity Catalog functions `lookup_order` / `customer_order_summary`.
