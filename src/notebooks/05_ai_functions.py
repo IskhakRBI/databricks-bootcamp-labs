@@ -26,7 +26,13 @@ display(spark.sql("SELECT ticket_id, channel, subject, body FROM support_tickets
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- TODO (lab-05): Create table tickets_enriched with ai_classify(body, ARRAY('delivery','return','billing','product_issue','account')) AS category, ai_analyze_sentiment(body) AS sentiment and ai_extract(body, ARRAY('order_id','product')) AS entities, for all tickets.
+# MAGIC CREATE OR REPLACE TABLE tickets_enriched AS
+# MAGIC SELECT
+# MAGIC   ticket_id, customer_id, channel, created_at, subject, body, true_category,
+# MAGIC   ai_classify(body, ARRAY('delivery', 'return', 'billing', 'product_issue', 'account')) AS category,
+# MAGIC   ai_analyze_sentiment(body)                                                         AS sentiment,
+# MAGIC   ai_extract(body, ARRAY('order_id', 'product'))                                     AS entities
+# MAGIC FROM support_tickets;
 
 # COMMAND ----------
 
@@ -55,7 +61,15 @@ display(spark.sql("SELECT ticket_id, channel, subject, body FROM support_tickets
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- TODO (lab-05): For the 10 most recent negative tickets, return ai_summarize(body, 20) AS summary and an ai_gen draft reply that is polite, apologises and never promises a refund.
+# MAGIC SELECT ticket_id, category,
+# MAGIC        ai_summarize(body, 20) AS summary,
+# MAGIC        ai_gen(concat(
+# MAGIC          'You are a polite customer-support agent. Write a short reply (max 60 words) to this ticket. ',
+# MAGIC          'Apologise, explain the next step, and never promise a refund. Ticket: ', body)) AS draft_reply
+# MAGIC FROM tickets_enriched
+# MAGIC WHERE sentiment = 'negative'
+# MAGIC ORDER BY created_at DESC
+# MAGIC LIMIT 10;
 
 # COMMAND ----------
 
