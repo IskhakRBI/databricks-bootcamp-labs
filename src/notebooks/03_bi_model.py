@@ -37,7 +37,18 @@
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- TODO (lab-03): Create dim_date with one row per day of 2026 (explode(sequence(...))) and columns date, year, quarter, month, month_name, week_of_year, day_of_week and is_weekend.
+# MAGIC CREATE OR REPLACE TABLE dim_date
+# MAGIC COMMENT 'Calendar dimension for 2026'
+# MAGIC AS SELECT
+# MAGIC   d                                   AS date,
+# MAGIC   year(d)                             AS year,
+# MAGIC   quarter(d)                          AS quarter,
+# MAGIC   month(d)                            AS month,
+# MAGIC   date_format(d, 'MMMM')              AS month_name,
+# MAGIC   weekofyear(d)                       AS week_of_year,
+# MAGIC   date_format(d, 'EEEE')              AS day_of_week,
+# MAGIC   dayofweek(d) IN (1, 7)              AS is_weekend
+# MAGIC FROM (SELECT explode(sequence(DATE'2026-01-01', DATE'2026-12-31', INTERVAL 1 DAY)) AS d);
 
 # COMMAND ----------
 
@@ -46,7 +57,10 @@
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- TODO (lab-03): Create fact_orders from orders_silver with order_id, customer_id, product_id, order_date, channel, quantity, amount and coupon_code.
+# MAGIC CREATE OR REPLACE TABLE fact_orders
+# MAGIC COMMENT 'One row per order line — grain: order_id'
+# MAGIC AS SELECT order_id, customer_id, product_id, order_date, channel, quantity, amount, coupon_code
+# MAGIC FROM orders_silver;
 
 # COMMAND ----------
 
@@ -67,7 +81,9 @@
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC -- TODO (lab-03): Add foreign keys from fact_orders to dim_customer (customer_id), dim_product (product_id) and dim_date (order_date).
+# MAGIC ALTER TABLE fact_orders ADD CONSTRAINT fact_orders_customer_fk FOREIGN KEY (customer_id) REFERENCES dim_customer;
+# MAGIC ALTER TABLE fact_orders ADD CONSTRAINT fact_orders_product_fk  FOREIGN KEY (product_id)  REFERENCES dim_product;
+# MAGIC ALTER TABLE fact_orders ADD CONSTRAINT fact_orders_date_fk     FOREIGN KEY (order_date)  REFERENCES dim_date;
 
 # COMMAND ----------
 
