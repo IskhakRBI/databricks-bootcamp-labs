@@ -51,8 +51,8 @@ targets:
         project: bootcamp
       trigger_pause_status: PAUSED   # CI triggers runs explicitly
     # Optional (lab 00, part 3.2): run as a service principal instead of the CI token's user.
-    run_as:
-      service_principal_name: acbe7efb-1e03-4a35-8fd3-9506d1b8c4a5
+    # run_as:
+    #   service_principal_name: <application-id>
 
   prod:
     mode: production
@@ -69,5 +69,5 @@ targets:
       # Free Edition allows 5 concurrent tasks and one active pipeline per type:
       # keep prod schedules paused during the bootcamp; set ACTIVE to go live.
       trigger_pause_status: PAUSED
-    run_as:
-     service_principal_name: acbe7efb-1e03-4a35-8fd3-9506d1b8c4a5
+    # run_as:
+    #   service_principal_name: <application-id>
