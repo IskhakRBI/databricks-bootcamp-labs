@@ -131,8 +131,8 @@ databricks bundle validate && databricks bundle validate -t staging
 ```
 
 ## Part 7 · Verify
-* Technical: `[dev <you>] generate_data` ran green; **Catalog → bootcamp_dev → dev_<you>_sales → Volumes → raw** has files.
-* Business: `[dev <you>] business_quickstart` ran green; the schema contains `orders_metrics`, `fact_orders`, `tickets_enriched`.
+* Technical: `[dev <you>] generate_data` job in **Jobs & Pipelines** ran green; **Catalog → bootcamp_dev → dev_<you>_sales → Volumes → raw** has files.
+* Business: `[dev <you>] business_quickstart` job in **Jobs & Pipelines** ran green; the schema contains `orders_metrics`, `fact_orders`, `tickets_enriched`.
 
 | Lab (deck section) | Technical track needs | Business track needs |
 |--------------------|-----------------------|----------------------|

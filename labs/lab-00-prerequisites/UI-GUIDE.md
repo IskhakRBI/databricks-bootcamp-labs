@@ -57,7 +57,7 @@ approval. In your free workspace the three are kept apart by name:
     *Selected branches and tags* → add *main* → **Save protection rules**.
 
 ## You are ready when
-- [ ] `business_quickstart` finished with all boxes green
+- [ ] `business_quickstart` job in **Jobs & Pipelines** finished with all boxes green
 - [ ] You can see `orders_metrics` in **Catalog**
 - [ ] GitHub shows the variable, the secret and the two environments
 
