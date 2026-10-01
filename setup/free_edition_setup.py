@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
 # MAGIC %md
 # MAGIC # Lab 00 · Free Edition setup (run once, ~2 minutes)
 # MAGIC Creates the three environment catalogs and checks everything the labs need in **your** Free Edition workspace.
@@ -79,3 +83,12 @@ GitHub → your repo → Settings → Secrets and variables → Actions
 (Or, if you created a service principal in lab 00, part 4 (option B):
   DATABRICKS_CLIENT_ID / DATABRICKS_CLIENT_SECRET instead of DATABRICKS_TOKEN.)
 """)
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC GRANT USE CATALOG, CREATE SCHEMA ON CATALOG bootcamp_staging TO `acbe7efb-1e03-4a35-8fd3-9506d1b8c4a5`;
+# MAGIC GRANT USE CATALOG, CREATE SCHEMA ON CATALOG bootcamp_prod    TO `acbe7efb-1e03-4a35-8fd3-9506d1b8c4a5`;
+
+# COMMAND ----------
+
