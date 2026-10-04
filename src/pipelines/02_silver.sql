@@ -21,7 +21,7 @@ AS SELECT
   to_date(order_ts)               AS order_date,
   upper(trim(region))             AS region,
   -- SOLUTION-BEGIN lab-01: After the schema-drift batch lands (with_coupon=true), add coupon_code to the select list.
-  coupon_code,
+  -- coupon_code,
   -- SOLUTION-END
   source_file
 FROM STREAM(orders_bronze);
