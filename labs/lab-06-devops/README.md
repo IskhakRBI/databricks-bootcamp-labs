@@ -85,7 +85,7 @@ has no account console. The workflow is otherwise identical — see *Enterprise 
 ## Part E · Break it, then roll back (15 min)
 1. Set `max_drop_rate: "0.001"` → PR → merge → staging's integration run fails → prod is never deployed.
 2. Revert → green: Open the merged PR and click Revert. Merge the PR that GitHub creates.
-3. **Actions → bundle-rollback → Run workflow** with an earlier good SHA (private repo:
+3. **Actions → bundle-rollback → Run workflow** with an earlier good SHA (Git commit unique ID) (private repo:
    `bundle-cicd-private` with `deploy_prod = yes`, `git_ref = <sha>`).
 
 ## Stretch
