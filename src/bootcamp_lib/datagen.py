@@ -8,8 +8,8 @@ from __future__ import annotations
 import json
 import os
 import random
-from datetime import date, datetime, timedelta
 from collections.abc import Iterable
+from datetime import date, datetime, timedelta
 
 REGIONS = ["EMEA", "NA", "LATAM", "APAC"]
 SEGMENTS = ["consumer", "smb", "enterprise"]
