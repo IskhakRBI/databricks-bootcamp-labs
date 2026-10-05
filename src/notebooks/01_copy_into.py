@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
 # MAGIC %md
 # MAGIC # Lab 01 · Idempotent batch loads with COPY INTO
 # MAGIC Compare with the Auto Loader streaming table in the pipeline: COPY INTO is a simple,
@@ -32,3 +36,6 @@ display(result)
 # COMMAND ----------
 
 display(spark.sql("SELECT count(*) AS total_rows, count(DISTINCT order_id) AS distinct_orders FROM orders_copy_into"))
+
+# COMMAND ----------
+

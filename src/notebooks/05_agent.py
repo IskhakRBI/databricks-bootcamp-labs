@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
 # MAGIC %md
 # MAGIC # Lab 05 · Build, trace and evaluate a support agent (code-first)
 # MAGIC Databricks Free Edition does not include the Agent Bricks *Knowledge Assistant*, so we build the same pattern

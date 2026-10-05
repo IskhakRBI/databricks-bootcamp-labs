@@ -32,12 +32,6 @@ targets:
                 entity_version: ${var.churn_model_version}
                 workload_size: Small
                 scale_to_zero_enabled: true
-          ai_gateway:
-            inference_table_config:
-              enabled: true
-              catalog_name: ${var.catalog}
-              schema_name: ${resources.schemas.sales.name}
-              table_name_prefix: churn_endpoint
           tags:
             - key: project
               value: bootcamp

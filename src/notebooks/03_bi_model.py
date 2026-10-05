@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
 # MAGIC %md
 # MAGIC # Lab 03 · A star schema for BI
 # MAGIC Builds a small **star schema** on top of the silver/gold data (see the *Star schema* slide):
@@ -107,3 +111,6 @@
 # MAGIC JOIN dim_date d ON f.order_date = d.date
 # MAGIC GROUP BY ALL
 # MAGIC ORDER BY d.quarter, revenue DESC;
+
+# COMMAND ----------
+

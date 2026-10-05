@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
 # MAGIC %md
 # MAGIC # Lab 05 · Generative AI in SQL with AI Functions
 # MAGIC Turn 300 free-text support tickets into structured, governed data — no model hosting, no Python.

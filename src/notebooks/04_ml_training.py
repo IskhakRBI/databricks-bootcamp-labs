@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
 # MAGIC %md
 # MAGIC # Lab 04 · Feature engineering in Unity Catalog + churn model
 # MAGIC 1. Compute customer features from `orders_enriched`
@@ -175,3 +179,6 @@ if publish_online:
         source_table_name=feature_table,
         online_table_name=f"{feature_table}_online",
     )
+
+# COMMAND ----------
+

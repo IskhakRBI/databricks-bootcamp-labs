@@ -1,0 +1,378 @@
+{
+  "benchmarks": {
+    "questions": [
+      {
+        "answer": [
+          {
+            "content": [
+              "SELECT\n",
+              "  `order_month`,\n",
+              "  MEASURE(`revenue`) AS `revenue`\n",
+              "FROM bootcamp_dev.dev_rahmani_taoufiq_sales.orders_metrics\n",
+              "GROUP BY ALL\n",
+              "ORDER BY `order_month` ASC"
+            ],
+            "format": "SQL"
+          }
+        ],
+        "id": "01f1bf99e88a14ff8a11accc34350c3a",
+        "question": [
+          "How did revenue trend by month in 2026?"
+        ]
+      },
+      {
+        "answer": [
+          {
+            "content": [
+              "SELECT\n",
+              "  COUNT(DISTINCT CASE WHEN dd.is_weekend THEN fo.order_id END) AS weekend_orders,\n",
+              "  COUNT(DISTINCT fo.order_id) AS total_orders,\n",
+              "  COUNT(DISTINCT CASE WHEN dd.is_weekend THEN fo.order_id END) * 100.0\n",
+              "    / COUNT(DISTINCT fo.order_id) AS weekend_share_pct\n",
+              "FROM bootcamp_dev.dev_rahmani_taoufiq_sales.fact_orders fo\n",
+              "JOIN bootcamp_dev.dev_rahmani_taoufiq_sales.dim_date dd\n",
+              "  ON fo.order_date = dd.date"
+            ],
+            "format": "SQL"
+          }
+        ],
+        "id": "01f1bf99e86b17669079ca762f03a734",
+        "question": [
+          "How many orders were placed on weekends, and what share of all orders is that?"
+        ]
+      },
+      {
+        "answer": [
+          {
+            "content": [
+              "SELECT\n",
+              "  `segment`,\n",
+              "  MEASURE(`avg_order_value`) AS `avg_order_value`\n",
+              "FROM bootcamp_dev.dev_rahmani_taoufiq_sales.orders_metrics\n",
+              "GROUP BY ALL\n",
+              "ORDER BY `avg_order_value` DESC"
+            ],
+            "format": "SQL"
+          }
+        ],
+        "id": "01f1bf99e84b19ecb64d945858a2dc15",
+        "question": [
+          "What is the average order value by customer segment?"
+        ]
+      },
+      {
+        "answer": [
+          {
+            "content": [
+              "SELECT\n",
+              "  dp.product_name,\n",
+              "  SUM(fo.amount) AS revenue\n",
+              "FROM bootcamp_dev.dev_rahmani_taoufiq_sales.fact_orders fo\n",
+              "JOIN bootcamp_dev.dev_rahmani_taoufiq_sales.dim_product dp\n",
+              "  ON fo.product_id = dp.product_id\n",
+              "GROUP BY dp.product_name\n",
+              "ORDER BY revenue DESC\n",
+              "LIMIT 5"
+            ],
+            "format": "SQL"
+          }
+        ],
+        "id": "01f1bf99e82b1a7c9c5d734960cd3cb9",
+        "question": [
+          "Which five products generated the most revenue?"
+        ]
+      },
+      {
+        "answer": [
+          {
+            "content": [
+              "SELECT\n",
+              "  dc.region,\n",
+              "  SUM(fo.amount) AS revenue\n",
+              "FROM bootcamp_dev.dev_rahmani_taoufiq_sales.fact_orders fo\n",
+              "JOIN bootcamp_dev.dev_rahmani_taoufiq_sales.dim_customer dc\n",
+              "  ON fo.customer_id = dc.customer_id\n",
+              "GROUP BY dc.region\n",
+              "ORDER BY revenue DESC"
+            ],
+            "format": "SQL"
+          }
+        ],
+        "id": "01f1bf99e80a17efae3ed5d4c0836b6b",
+        "question": [
+          "What is total revenue by customer region?"
+        ]
+      }
+    ]
+  },
+  "data_sources": {
+    "tables": [
+      {
+        "column_configs": [
+          {
+            "column_name": "customer_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "first_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "region",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "segment",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "signup_date",
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "bootcamp_dev.dev_rahmani_taoufiq_sales.dim_customer"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "date",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "day_of_week",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "is_weekend",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "month",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "month_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "quarter",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "week_of_year",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "year",
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "bootcamp_dev.dev_rahmani_taoufiq_sales.dim_date"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "category",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "list_price",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "product_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "product_name",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "bootcamp_dev.dev_rahmani_taoufiq_sales.dim_product"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "amount",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "channel",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "coupon_code",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "customer_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "order_date",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "order_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "product_id",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "quantity",
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "bootcamp_dev.dev_rahmani_taoufiq_sales.fact_orders"
+      },
+      {
+        "column_configs": [
+          {
+            "column_name": "avg_order_value"
+          },
+          {
+            "column_name": "category",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "channel",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "order_count"
+          },
+          {
+            "column_name": "order_month",
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "region",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          },
+          {
+            "column_name": "revenue"
+          },
+          {
+            "column_name": "segment",
+            "enable_entity_matching": true,
+            "enable_format_assistance": true
+          }
+        ],
+        "identifier": "bootcamp_dev.dev_rahmani_taoufiq_sales.orders_metrics"
+      }
+    ]
+  },
+  "instructions": {
+    "example_question_sqls": [
+      {
+        "id": "01f1bf99a287167482f1cea2849c9b71",
+        "question": [
+          "What is revenue by customer segment and quarter?"
+        ],
+        "sql": [
+          "SELECT\n",
+          "  dc.segment,\n",
+          "  dd.year,\n",
+          "  dd.quarter,\n",
+          "  SUM(fo.amount) AS revenue,\n",
+          "  COUNT(DISTINCT fo.order_id) AS order_count\n",
+          "FROM bootcamp_dev.dev_rahmani_taoufiq_sales.fact_orders fo\n",
+          "JOIN bootcamp_dev.dev_rahmani_taoufiq_sales.dim_customer dc\n",
+          "  ON fo.customer_id = dc.customer_id\n",
+          "JOIN bootcamp_dev.dev_rahmani_taoufiq_sales.dim_date dd\n",
+          "  ON fo.order_date = dd.date\n",
+          "GROUP BY dc.segment, dd.year, dd.quarter\n",
+          "ORDER BY dc.segment, dd.year, dd.quarter"
+        ]
+      },
+      {
+        "id": "01f1bf99bcf21fc4a249bf076d449ccd",
+        "question": [
+          "What is monthly revenue and order count by sales channel?"
+        ],
+        "sql": [
+          "SELECT\n",
+          "  `order_month`,\n",
+          "  `channel`,\n",
+          "  MEASURE(`revenue`) AS `revenue`,\n",
+          "  MEASURE(`order_count`) AS `order_count`\n",
+          "FROM bootcamp_dev.dev_rahmani_taoufiq_sales.orders_metrics\n",
+          "GROUP BY ALL\n",
+          "ORDER BY `order_month` ASC, `channel` ASC"
+        ]
+      }
+    ],
+    "join_specs": [
+      {
+        "id": "01f1bf98b6b715ccbbc190f268e22471",
+        "left": {
+          "alias": "fact_orders",
+          "identifier": "bootcamp_dev.dev_rahmani_taoufiq_sales.fact_orders"
+        },
+        "right": {
+          "alias": "dim_customer",
+          "identifier": "bootcamp_dev.dev_rahmani_taoufiq_sales.dim_customer"
+        },
+        "sql": [
+          "`fact_orders`.`customer_id` = `dim_customer`.`customer_id`",
+          "--rt=FROM_RELATIONSHIP_TYPE_MANY_TO_ONE--"
+        ]
+      },
+      {
+        "id": "01f1bf98b6b71afb897a4c603b60fb8f",
+        "left": {
+          "alias": "fact_orders",
+          "identifier": "bootcamp_dev.dev_rahmani_taoufiq_sales.fact_orders"
+        },
+        "right": {
+          "alias": "dim_product",
+          "identifier": "bootcamp_dev.dev_rahmani_taoufiq_sales.dim_product"
+        },
+        "sql": [
+          "`fact_orders`.`product_id` = `dim_product`.`product_id`",
+          "--rt=FROM_RELATIONSHIP_TYPE_MANY_TO_ONE--"
+        ]
+      },
+      {
+        "id": "01f1bf98b6b71db4994c004916a53f90",
+        "left": {
+          "alias": "fact_orders",
+          "identifier": "bootcamp_dev.dev_rahmani_taoufiq_sales.fact_orders"
+        },
+        "right": {
+          "alias": "dim_date",
+          "identifier": "bootcamp_dev.dev_rahmani_taoufiq_sales.dim_date"
+        },
+        "sql": [
+          "`fact_orders`.`order_date` = `dim_date`.`date`",
+          "--rt=FROM_RELATIONSHIP_TYPE_MANY_TO_ONE--"
+        ]
+      }
+    ],
+    "text_instructions": [
+      {
+        "content": [
+          "* Revenue always means the governed revenue measure. \n",
+          "* Use calendar months.\n",
+          "* Answer in EUR."
+        ],
+        "id": "01f1bf9923c514009cfd5561988dc972"
+      }
+    ]
+  },
+  "version": 2
+}

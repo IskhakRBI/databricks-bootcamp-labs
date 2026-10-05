@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
 # MAGIC %md
 # MAGIC # 00 · Generate bootcamp sample data
 # MAGIC Writes deterministic synthetic data to the `raw` volume:
