@@ -87,7 +87,7 @@
 
 # MAGIC %sql
 # MAGIC -- SOLUTION-BEGIN lab-01: In one transaction, set status = 'refunded' for order_id 1 in orders_status and insert the matching refund row into refunds.
-# MAGIC BEGIN ATOMIC;
+# MAGIC BEGIN ATOMIC
 # MAGIC   UPDATE orders_status SET status = 'refunded' WHERE order_id = 1;
 # MAGIC   INSERT INTO refunds SELECT order_id, current_timestamp(), amount FROM orders_status WHERE order_id = 1;
 # MAGIC END;
