@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
 # MAGIC %md
 # MAGIC # Lab 01 · Delta Lake & managed Iceberg
 # MAGIC Prerequisite: the `orders_pipeline` from lab 01 has run at least once.
