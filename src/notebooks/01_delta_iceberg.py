@@ -69,6 +69,13 @@
 # MAGIC
 # MAGIC CREATE TABLE IF NOT EXISTS refunds (order_id BIGINT, refunded_at TIMESTAMP, amount DECIMAL(12, 2));
 
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC ALTER TABLE orders_status SET TBLPROPERTIES ('delta.feature.catalogManaged' = 'supported');
+# MAGIC ALTER TABLE refunds SET TBLPROPERTIES ('delta.feature.catalogManaged' = 'supported');
+
 # COMMAND ----------
 
 # MAGIC %sql
