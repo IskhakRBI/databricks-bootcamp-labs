@@ -29,7 +29,7 @@ its predictions — and what questions a business owner should ask before trusti
    JOIN bootcamp_dev.dev_<you>_sales.dim_customer c USING (customer_id)
    GROUP BY ALL ORDER BY customers_at_risk DESC;
    ```
-7. Click ** [⋮] ** top right → **file** → **Add to dashboard** → your *Sales overview* → a new "customers at risk" chart.
+7. Click **[⋮]** top right → **file** → **Add to dashboard** → your *Sales overview* → a new "customers at risk" chart.
 8. *(optional)* Ask your Genie Agent (lab 03) after adding `churn_predictions` to it: *"Which enterprise customers are at
    risk in EMEA?"*
 
