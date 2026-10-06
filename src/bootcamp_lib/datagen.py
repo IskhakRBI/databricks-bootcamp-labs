@@ -8,8 +8,8 @@ from __future__ import annotations
 import json
 import os
 import random
+from collections.abc import Iterable
 from datetime import date, datetime, timedelta
-from typing import Iterable
 
 REGIONS = ["EMEA", "NA", "LATAM", "APAC"]
 SEGMENTS = ["consumer", "smb", "enterprise"]
@@ -51,7 +51,7 @@ def generate_products(n: int = 60, seed: int = 7) -> list[dict]:
         base = {"laptops": 1100, "phones": 700, "accessories": 40, "software": 150, "services": 300}[category]
         products.append({
             "product_id": i,
-            "name": f"{category[:-1] if category.endswith('s') else category}-{i:03d}",
+            "name": f"{category.removesuffix('s')}-{i:03d}",
             "category": category,
             "list_price": round(base * rng.uniform(0.6, 1.6), 2),
         })
