@@ -33,7 +33,7 @@ targets:
                 scale_to_zero_enabled: true
           ai_gateway:
             inference_table_config:
-              enabled: true
+              enabled: false  # Free Edition workspaces return FEATURE_DISABLED for inference tables
               catalog_name: ${var.catalog}
               schema_name: ${resources.schemas.sales.name}
               table_name_prefix: churn_endpoint
